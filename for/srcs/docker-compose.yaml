@@ -1,0 +1,51 @@
+version: '3'
+volumes:
+  data: {}
+services:
+  mariadb:
+    image: debian:buster
+    restart: always
+    build:
+      context: requirements/mariadb
+      args:
+        - WP_USER
+        - WP_PASSWORD
+        - WP_DATABASE
+    expose:
+      - "3306"
+    volumes:
+      - data:/var/database
+    networks:
+      - intra
+    tty: true
+  nginx:
+    image: debian:buster
+    restart: always
+    build:
+      context: requirements/nginx
+    ports:
+      - "443:443"
+    volumes:
+      - data:/var/www/html
+    networks:
+      - intra
+    tty: true
+  wordpress:
+    image: debian:buster
+    restart: always
+    build:
+      context: requirements/wordpress
+      args:
+        - WP_USER
+        - WP_PASSWORD
+        - WP_DATABASE
+    volumes:
+      - data:/var/www/html
+    expose:
+      - "9000"
+    networks:
+      - intra
+    tty: true
+networks:
+  intra:
+    driver: bridge
