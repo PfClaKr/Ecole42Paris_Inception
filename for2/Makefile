@@ -17,6 +17,7 @@ fclean: clean
 	sudo docker container prune
 	sudo docker image prune
 	sudo docker volume prune
+	sudo docker rmi wordpress nginx mariadb debian:buster
 	sudo rm -rf ./ychun
 mariadb:
 	sudo docker-compose --file=$(COMPOSE_YAML) exec mariadb /bin/bash
@@ -25,8 +26,8 @@ wordpress:
 nginx:
 	sudo docker-compose --file=$(COMPOSE_YAML) exec nginx /bin/bash
 mariadb_log:
-	sudo docker logs --tail 30 mariadb
+	sudo docker logs --tail 30 srcs_mariadb_1
 wordpress_log:
-	sudo docker logs --tail 30 wordpress
+	sudo docker logs --tail 30 srcs_wordpress_1
 nginx_log:
-	sudo docker logs --tail 30 nginx
+	sudo docker logs --tail 30 srcs_nginx_1
