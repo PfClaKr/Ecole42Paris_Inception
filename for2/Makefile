@@ -5,11 +5,11 @@ all:
 	mkdir -p $(VOLUME)
 	mkdir -p $(VOLUME)/mariadb
 	mkdir -p $(VOLUME)/wordpress
-	sudo docker-compose --file=$(COMPOSE_YAML) up --build -d
+	sudo docker-compose --file=$(COMPOSE_YAML) up -d --build
 
 
 up:
-	sudo docker-compose --file=$(COMPOSE_YAML) up --build -d
+	sudo docker-compose --file=$(COMPOSE_YAML) up -d --build
 clean:
 	sudo docker-compose --file=$(COMPOSE_YAML) down
 fclean: clean

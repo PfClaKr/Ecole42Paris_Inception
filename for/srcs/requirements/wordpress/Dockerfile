@@ -6,7 +6,7 @@ ARG WP_PASSWORD
 
 RUN apt-get update -y
 RUN apt-get upgrade -y
-RUN apt-get -y install php7.3 php-mysqli php-fpm wget sendmail
+RUN apt-get -y install php7.3 php-fpm php-cli wget curl php-mysql php-mbstring php-xml sendmail
 
 EXPOSE 9000
 
@@ -25,5 +25,4 @@ RUN cd /var/www/html && \
 	sed -i "s/username_here/$WP_USER/g" wp-config.php && \
 	sed -i "s/password_here/$WP_PASSWORD/g" wp-config.php && \
 	sed -i "s/localhost/mariadb/g" wp-config.php
-RUN exec "$@"
-CMD ["php-fpm", "-F"]
+ENTRYPOINT ["php-fpm7.3", "-F"]

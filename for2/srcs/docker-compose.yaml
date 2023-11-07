@@ -17,10 +17,10 @@ volumes:
       o: bind
 services:
   mariadb:
-    image: debian:buster
+    image: mariadb
     restart: always
     build:
-      context: requirements/mariadb
+      context: ./requirements/mariadb
       args:
         - WP_USER
         - WP_PASSWORD
@@ -32,23 +32,11 @@ services:
     networks:
       - intra
     tty: true
-  nginx:
-    image: debian:buster
-    restart: always
-    build:
-      context: requirements/nginx
-    ports:
-      - "443:443"
-    volumes:
-      - wordpress-volume:/var/www/html
-    networks:
-      - intra
-    tty: true
   wordpress:
-    image: debian:buster
+    image: wordpress
     restart: always
     build:
-      context: requirements/wordpress
+      context: ./requirements/wordpress
       args:
         - WP_USER
         - WP_PASSWORD
@@ -57,6 +45,18 @@ services:
       - wordpress-volume:/var/www/html
     expose:
       - "9000"
+    networks:
+      - intra
+    tty: true
+  nginx:
+    image: nginx
+    restart: always
+    build:
+      context: ./requirements/nginx
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress-volume:/var/www/html
     networks:
       - intra
     tty: true
