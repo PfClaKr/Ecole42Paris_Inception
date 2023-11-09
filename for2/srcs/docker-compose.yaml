@@ -30,7 +30,8 @@ services:
     volumes:
       - mariadb-volume:/var/database
     networks:
-      - intra
+      intra:
+        ipv4_address: 172.31.0.11
     tty: true
   wordpress:
     image: wordpress
@@ -46,7 +47,8 @@ services:
     expose:
       - "9000"
     networks:
-      - intra
+      intra:
+        ipv4_address: 172.31.0.12
     tty: true
   nginx:
     image: nginx
@@ -58,7 +60,8 @@ services:
     volumes:
       - wordpress-volume:/var/www/html
     networks:
-      - intra
+      intra:
+        ipv4_address: 172.31.0.13
     tty: true
 
 networks:
@@ -66,3 +69,5 @@ networks:
     driver: bridge
     ipam:
       driver: default
+      config:
+        - subnet: 172.31.0.0/16

@@ -19,6 +19,7 @@ fclean: clean
 	sudo docker volume prune
 	sudo docker rmi wordpress nginx mariadb debian:buster
 	sudo rm -rf ./ychun
+re: fclean all
 mariadb:
 	sudo docker-compose --file=$(COMPOSE_YAML) exec mariadb /bin/bash
 wordpress:
