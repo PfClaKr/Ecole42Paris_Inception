@@ -12,11 +12,11 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	wp core download --allow-root --path=/var/www/html/
 	cd /var/www/html
 	cp wp-config-sample.php wp-config.php
-	sed -i "s/database_name_here/wordpress_db/g" wp-config.php
-	sed -i "s/username_here/ychun/g" wp-config.php
-	sed -i "s/password_here/1/g" wp-config.php
-	sed -i "s/localhost/172.31.0.11/g" wp-config.php
-	wp core install --url="https://ychun.42.fr" --title="Ychun inception" --admin_user="pfcla" --admin_password=1 --admin_email="ychun@42.fr" --allow-root --path=/var/www/html/
+	sed -i "s/database_name_here/$MARIADB_DATABASE/g" wp-config.php
+	sed -i "s/username_here/$MARIADB_ROOT_USER/g" wp-config.php
+	sed -i "s/password_here/$MARIADB_ROOT_PWD/g" wp-config.php
+	sed -i "s/localhost/$WP_HOST/g" wp-config.php
+	wp core install --url="$WP_URL" --title="$WP_TITLE" --admin_user="$WP_USER" --admin_password="$WP_PASSWORD" --admin_email="$WP_EMAIL" --allow-root --path=/var/www/html/
 fi
 
 service php7.3-fpm stop;
