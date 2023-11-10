@@ -16,7 +16,8 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	sed -i "s/username_here/$MARIADB_ROOT_USER/g" wp-config.php
 	sed -i "s/password_here/$MARIADB_ROOT_PWD/g" wp-config.php
 	sed -i "s/localhost/$WP_HOST/g" wp-config.php
-	wp core install --url="$WP_URL" --title="$WP_TITLE" --admin_user="$WP_USER" --admin_password="$WP_PASSWORD" --admin_email="$WP_EMAIL" --allow-root --path=/var/www/html/
+	wp core install --url="$WP_URL" --title="$WP_TITLE" --admin_user="$WP_ADMIN_USER" --admin_password="$WP_ADMIN_PASSWORD" --admin_email="$WP_ADMIN_EMAIL" --allow-root --path=/var/www/html/
+	wp user create $WP_USER $WP_USER_EMAIL --user_pass=$WP_USER_PASSWORD --role=editor --allow-root --path=/var/www/html/
 fi
 
 service php7.3-fpm stop;

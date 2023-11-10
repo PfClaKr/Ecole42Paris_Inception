@@ -6,14 +6,14 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ./ychun/data/mariadb
+      device: /home/ychun/data/mariadb
       o: bind
   wordpress-volume:
     name: wordpress-volume
     driver: local
     driver_opts:
       type: none
-      device: ./ychun/data/wordpress
+      device: /home/ychun/data/wordpress
       o: bind
 services:
   mariadb:
@@ -21,14 +21,10 @@ services:
     restart: always
     build:
       context: ./requirements/mariadb
-      args:
-        - WP_USER
-        - WP_PASSWORD
-        - WP_DATABASE
     expose:
       - "3306"
     volumes:
-      - mariadb-volume:/var/database
+      - mariadb-volume:/var/lib/mysql
     networks:
       intra:
         ipv4_address: 172.31.0.11
@@ -40,10 +36,6 @@ services:
     restart: always
     build:
       context: ./requirements/wordpress
-      args:
-        - WP_USER
-        - WP_PASSWORD
-        - WP_DATABASE
     volumes:
       - wordpress-volume:/var/www/html
     expose:
