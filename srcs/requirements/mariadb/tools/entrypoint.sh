@@ -9,5 +9,4 @@ echo "FLUSH PRIVILEGES;" | mysql -uroot -p$MARIADB_ROOT_PWD
 
 service mysql stop
 
-
 exec "$@"
