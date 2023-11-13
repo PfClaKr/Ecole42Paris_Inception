@@ -2,10 +2,10 @@ COMPOSE_YAML = srcs/docker-compose.yaml
 VOLUME = /home/ychun/data
 
 all:
-	mkdir -p $(VOLUME)
-	mkdir -p $(VOLUME)/mariadb
-	mkdir -p $(VOLUME)/wordpress
-	grep ychun.42.fr /etc/hosts || echo "127.0.0.1 ychun.42.fr" >> /etc/hosts
+	sudo mkdir -p $(VOLUME)
+	sudo mkdir -p $(VOLUME)/mariadb
+	sudo mkdir -p $(VOLUME)/wordpress
+	sudo grep ychun.42.fr /etc/hosts || sudo echo "127.0.0.1 ychun.42.fr" >> /etc/hosts
 	sudo docker-compose --file=$(COMPOSE_YAML) up -d --build
 
 
